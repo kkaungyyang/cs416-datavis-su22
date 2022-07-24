@@ -1,1 +1,1 @@
-# cs416-datavis-su22
+Data Visualizatoin | CS 416 | SU 2022
