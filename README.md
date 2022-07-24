@@ -1,1 +1,1 @@
-Data Visualizatoin | CS 416 | SU 2022
+# Data Visualization | CS 416 | SU 2022
