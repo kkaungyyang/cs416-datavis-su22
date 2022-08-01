@@ -134,11 +134,41 @@ class D3Helper {
       .attr('y', function (d) {
         return y(d[yKey]);
       })
+      .attr('value', function (d) {
+        return JSON.stringify(d);
+      })
       .attr('width', function (d) {
         return x(d[xKey]);
       })
       .attr('height', y.bandwidth())
       .attr('fill', '#0078d8');
+
+    svg
+      .selectAll('rect')
+      .on('mouseover', function (e) {
+        d3.select(this).style('fill', 'orange').style('cursor', 'pointer');
+        console.log(e, this);
+
+        console.log(JSON.parse(this.getAttribute('value')));
+        // console.log(d3.event, d3.mouse(this));
+        var dataObj = JSON.parse(this.getAttribute('value'));
+        currMoreInfo.innerHTML = `<div>
+          <ul>
+          <li>Country Name: ${dataObj[FIELDS.CNT_NAME]}</li>
+          <li>Year: ${dataObj[FIELDS.YEAR]}</li>
+          <li>Number of refugees: <span class="colorRed">${numberFormatter.format(
+            dataObj[FIELDS.VALUE]
+          )}<span></li>
+          </ul>
+        </div>`;
+      })
+      .on('mouseout', function (e) {
+        d3.select(this).style('fill', '#0078d8');
+      })
+      .on('click', function (e) {
+        console.log('getting clicked', this);
+        addCompareCard(JSON.parse(this.getAttribute('value')));
+      });
   }
 }
 

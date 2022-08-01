@@ -158,3 +158,37 @@ function calculateRegionalData() {
   }
   summStat.appendChild(ul);
 }
+
+function addCompareCard(dataObj) {
+  var div = document.createElement('div');
+  div.className = 'compareCard';
+  div.innerHTML = `${dataObj[FIELDS.CNT_NAME]} | ${
+    dataObj[FIELDS.YEAR]
+  } | <span class="colorRed">${numberFormatter.format(
+    dataObj[FIELDS.VALUE]
+  )}</span>`;
+  comparePanel.appendChild(div);
+  div.addEventListener('click', (e) => {
+    console.log(e);
+    comparePanel.removeChild(e.target);
+  });
+}
+
+const makeAnnotations = d3
+  .annotation()
+  .editMode(true)
+  //also can set and override in the note.padding property
+  //of the annotation object
+  .notePadding(15)
+  .type(type)
+  //accessors & accessorsInverse not needed
+  //if using x, y in annotations JSON
+  .accessors({
+    x: (d) => x(parseTime(d.date)),
+    y: (d) => y(d.close),
+  })
+  .accessorsInverse({
+    date: (d) => timeFormat(x.invert(d.x)),
+    close: (d) => y.invert(d.y),
+  })
+  .annotations(annotations);

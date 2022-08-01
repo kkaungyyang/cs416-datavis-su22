@@ -43,6 +43,10 @@ const SELECTORS = {
   CLS_FOR_YEAR: '.forYear',
   CLS_TOT_REF: '.totalRefugees',
   SUMM_STAT: '#summStat',
+  CLEAR_BTN: '#clearBtn',
+  CMP_PNL: '#comparePanel',
+  CMP_CARD: '.compareCard',
+  CURR_MORE_INFO: '#currMoreInfo',
 };
 
 /**
@@ -54,6 +58,10 @@ var forYear = document.querySelectorAll(SELECTORS.CLS_FOR_YEAR);
 var barChartDiv = document.querySelector(SELECTORS.BAR_CHART);
 var totalRefSpan = document.querySelectorAll(SELECTORS.CLS_TOT_REF);
 var summStat = document.querySelector(SELECTORS.SUMM_STAT);
+var clearBtn = document.querySelector(SELECTORS.CLEAR_BTN);
+var comparePanel = document.querySelector(SELECTORS.CMP_PNL);
+var currMoreInfo = document.querySelector(SELECTORS.CURR_MORE_INFO);
+var compareCard = document.querySelectorAll(SELECTORS.CMP_CARD);
 
 /**
  * read data
@@ -106,4 +114,19 @@ var summStat = document.querySelector(SELECTORS.SUMM_STAT);
   });
   topNSelect.value = '10';
   topNSelect.dispatchEvent(new Event('change'));
+
+  window.setInterval(() => {
+    summStat.scrollBy(0, 1);
+  }, 25);
+
+  window.setInterval(() => {
+    summStat.scrollTo(0, 0);
+  }, 30000);
+
+  /**
+   * clear btn
+   */
+  clearBtn.addEventListener('click', (e) => {
+    comparePanel.innerHTML = '';
+  });
 })();

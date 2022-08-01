@@ -29,9 +29,55 @@
       <div class="content-body">
         <div class="left-panel">
           <div>
+            <div id="currMoreInfoParent">
+              <h2>Current Data</h2>
+              <div id="currMoreInfo"></div>
+            </div>
             <div id="summStatParent">
-              <h2>Regional / Demographics</h2>
+              <h2>Regional / Demographics <span class="forYear"></span></h2>
               <div id="summStat"></div>
+            </div>
+            <div id="takeActionsParent">
+              <h2>Take Actions</h2>
+              <div id="takeActions">
+                <ul>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://data.unhcr.org/en/situations"
+                      >Learn More @UNHCR</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://www.unhcr.org/renewableenergy4refugees/"
+                      >Energy for refugees</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://www.whitehouse.gov/get-involved/write-or-call/#:~:text=Send%20a%20letter%20to%20the%20White%20House&text=If%20you%20write%20a%20letter,well%20as%20on%20your%20envelope."
+                      >Write a letter to the white house</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://register.state.gov/contactus/ContactUsForm"
+                      >Contact US Department of State</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://www.roomforrefugees.com/how-it-works"
+                      >Room for refugees</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -44,6 +90,12 @@
           </h2>
           <div id="barChart"></div>
           <pre id="temp"></pre>
+        </div>
+        <div id="comparePanelParent">
+          <h2>
+            Compare <span><button id="clearBtn">Clear</button></span>
+          </h2>
+          <div id="comparePanel"></div>
         </div>
       </div>
     </div>

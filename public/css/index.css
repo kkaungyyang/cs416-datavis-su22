@@ -41,6 +41,7 @@ nav a:hover {
   display: flex;
   justify-content: start;
   min-width: 100vw;
+  height: 100vh;
 }
 
 .d-none {
@@ -58,12 +59,13 @@ nav a:hover {
 }
 
 .render-panel {
-  overflow-y: scroll;
-  width: 100%;
+  overflow-y: auto;
+  width: 50%;
 
   margin-left: 10px;
   padding: 10px;
   border: 1px solid #f1f1f1;
+
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 4px;
 }
 
@@ -95,7 +97,6 @@ svg {
 
 #summStat {
   height: 30vh;
-
   min-height: 300px;
   overflow-y: scroll;
 }
@@ -103,4 +104,57 @@ svg {
 select {
   padding: 2px 10px;
   font-size: 1.2rem;
+}
+
+#takeActionsParent {
+  border: 5px solid transparent;
+  border-image: linear-gradient(
+    to bottom right,
+    #b827fc 0%,
+    #2c90fc 25%,
+    #b8fd33 50%,
+    #fec837 75%,
+    #fd1892 100%
+  );
+  border-image-slice: 1;
+  max-height: 300px;
+  padding: 10px;
+}
+
+#takeActions {
+  overflow-y: scroll;
+  max-height: 200px;
+}
+
+#comparePanelParent {
+  min-width: 300px;
+  width: 30%;
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #f1f1f1;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 4px;
+}
+
+#clearBtn {
+  padding: 5px 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.compareCard {
+  border: 1px solid #f1f1f1;
+  padding: 10px;
+  margin-bottom: 2px;
+}
+.compareCard:hover {
+  background-color: #fff8f8;
+  cursor: pointer;
+}
+
+#currMoreInfoParent {
+  border: 1px solid #f1f1f1;
+  padding: 10px;
+  min-height: 200px;
+  max-height: 200px;
+  overflow: auto;
 }
