@@ -4,20 +4,57 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" type="image/x-icon" href="#" />
+
     <title>Data Viz | Kaung Yang</title>
   </head>
   <body>
     <nav class="nav-bar">
       <a id="home" href="./index.html">Home</a>
-      <a id="explore" href="./explore.html">Explore</a>
-      <a id="visual" href="./visual.html">Visual</a>
+      <!-- <a id="explore" href="./explore.html">Explore</a> -->
+      <!-- <a id="visual" href="./visual.html">Visual</a> -->
       <a id="info" href="./info.html">Info</a>
     </nav>
+    <div class="content">
+      <h1>Refugees data for year <span class="forYear"></span></h1>
+      <p>
+        In the year <span class="forYear"></span>, there were a total of
+        <span class="totalRefugees"> </span> refugees in different
+        <i>individual</i> countries.
+      </p>
+
+      <div class="content-header"></div>
+      <div class="content-body">
+        <div class="left-panel">
+          <div>
+            <div id="summStatParent">
+              <h2>Regional / Demographics</h2>
+              <div id="summStat"></div>
+            </div>
+          </div>
+        </div>
+        <div class="render-panel">
+          <h2>
+            Top
+            <select id="topNSelect" name="cars" id="cars"></select>
+            countries with the most refugees in
+            <select name="year" id="yearControl"></select>
+          </h2>
+          <div id="barChart"></div>
+          <pre id="temp"></pre>
+        </div>
+      </div>
+    </div>
   </body>
   <footer>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="./js/constants.js"></script>
+    <script src="./js/controllers.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/helpers.js"></script>
   </footer>
 </html>

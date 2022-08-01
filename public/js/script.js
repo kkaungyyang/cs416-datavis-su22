@@ -1,31 +1,109 @@
-// var paragraphs = document.getElementsByTagName('p');
-// for (var i = 0; i < paragraphs.length; i++) {
-//   var paragraph = paragraphs.item(i);
-//   paragraph.style.setProperty('color', 'blue', null);
-// }
-class SystemController {
-  constructor() {}
+/**
+ * This is the main execution file
+ *
+ * @Author Kaung Yang
+ * Date: July 31st 2021
+ */
 
-  setNavColor() {
-    let navLinks = document.querySelectorAll('nav a');
-    let pathName = window.location.pathname;
-    navLinks.forEach((e) => {
-      if (pathName.toLowerCase() == '/' && e.id.toLowerCase() == 'home') {
-        e.classList.add('js-bg');
-      } else if (pathName.toLowerCase().includes(e.id.toLowerCase())) {
-        e.classList.add('js-bg');
-      }
-    });
-  }
-}
+var CTX = 'global.script.js';
+
+logger.setScope(CTX);
+logger.setActive(false);
 
 /**
- * Beginning of Execution
+ * global variables // TODO: turn into const after
  */
-(() => {
-  console.log('this is d3 in the self', d3);
-  console.log(window.location);
+var CURRENT_YEAR = '';
+var YEARS = [];
+var IND_MAP = {};
+var ORIG_DATA = {};
+var ALL_CNTR_MAP = {};
+var CNTR_ONLY_MAP = {};
+var DEMO_OR_RGN_MAP = {};
+var CNTRS = {};
+var TOP_N = 10;
 
-  let systemController = new SystemController();
-  systemController.setNavColor();
-})(d3);
+var currBarData = [];
+var totalRefugeeInYear = 0;
+
+/**
+ * chart configs
+ */
+let width = 500;
+let height = 500;
+let margin = { top: 50, bottom: 50, left: 150, right: 50 };
+
+/**
+ * selectors
+ */
+const SELECTORS = {
+  BAR_CHART: 'div#barChart',
+  YEAR_CONTROL: '#yearControl',
+  TOP_N_SELECT: '#topNSelect',
+  CLS_FOR_YEAR: '.forYear',
+  CLS_TOT_REF: '.totalRefugees',
+  SUMM_STAT: '#summStat',
+};
+
+/**
+ * selector elements
+ */
+var yearControl = document.querySelector(SELECTORS.YEAR_CONTROL);
+var topNSelect = document.querySelector(SELECTORS.TOP_N_SELECT);
+var forYear = document.querySelectorAll(SELECTORS.CLS_FOR_YEAR);
+var barChartDiv = document.querySelector(SELECTORS.BAR_CHART);
+var totalRefSpan = document.querySelectorAll(SELECTORS.CLS_TOT_REF);
+var summStat = document.querySelector(SELECTORS.SUMM_STAT);
+
+/**
+ * read data
+ */
+(async () => {
+  ORIG_DATA = await d3.json('data.json');
+  logger.log('ORIG_DATA', ORIG_DATA);
+
+  // populate data in the global area
+  processData();
+
+  // add year options to drop down
+  addOptions(yearControl, YEARS);
+
+  /**
+   * year control listener
+   */
+  yearControl.addEventListener('change', (e) => {
+    CURRENT_YEAR = e.target.value;
+    TOP_N = 10;
+    forYear.forEach((e) => (e.innerText = CURRENT_YEAR));
+
+    // filter and sort data
+    currBarData = IND_MAP[IND_ORIGIN].filter(
+      (e) =>
+        e[FIELDS.VALUE] != '' &&
+        e[FIELDS.YEAR] == CURRENT_YEAR &&
+        e[FIELDS.CNT_NAME] in FINAL_COUNTRIES
+    ).sort((a, b) => b[FIELDS.VALUE] - a[FIELDS.VALUE]);
+
+    logger.logActive('FILTERED BY YEAR', currBarData);
+
+    var size = currBarData.length;
+    addTopNOptions(size);
+    calculateTotalRefugees();
+    calculateRegionalData();
+    renderBarChart(currBarData);
+  });
+  yearControl.value = '2020';
+  yearControl.dispatchEvent(new Event('change'));
+
+  /**
+   * top N listener
+   */
+  topNSelect.addEventListener('change', (e) => {
+    logger.logActive('topNSelect', e.target.value);
+    logger.logActive('topNSelect', CURRENT_YEAR, CNTR_ONLY_MAP);
+    TOP_N = e.target.value;
+    renderBarChart(currBarData);
+  });
+  topNSelect.value = '10';
+  topNSelect.dispatchEvent(new Event('change'));
+})();
